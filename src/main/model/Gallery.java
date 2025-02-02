@@ -14,14 +14,51 @@ public class Gallery {
     }
 
     /*
+    * REQUIRES: the title of the new drawing must be unique
     * MODIFIES: this
     * EFFECTS: adds a new drawing to the list of drawings
     */
     public void addDrawing(Drawing d){
     }
 
+        /*
+     * EFFECTS: returns a list of all drawings in galley
+     */
+    public List<Drawing> getDrawingList() {
+        return new ArrayList<>(); // stub
+    }
+
     /*
-    * REQUIRES: size of drawing list must be >= 1
+    * EFFECTS: returns a list of all drawings that are marked as in progress
+    */
+    public List<Drawing> getInProgressList() {
+        return new ArrayList<>(); // stub
+    }
+
+    /*
+    * EFFECTS: returns a list of all drawings that are marked as complete
+    */
+    public List<Drawing> getCompleteList() {
+        return new ArrayList<>(); // stub
+    }
+
+    /*
+    * EFFECTS: returns true if a drawing with the given title exists in the list of drawings
+    */
+    public boolean containsDrawingWithTitle(String title) {
+        return true; // stub
+    }
+
+    /*
+    * REQUIRES: a drawing in the list of drawings has the corresponding title
+    * EFFECTS: returns Drawing object with matching title from list of drawings
+    */
+    public Drawing getDrawing(String title) {
+        return new Drawing("stub", 0, 0, null);
+    }
+
+    /*
+    * REQUIRES: d must be in the list of drawings
     * MODIFIES: this
     * EFFECTS: removes a drawing from the list of drawings
     */
@@ -36,6 +73,7 @@ public class Gallery {
     }
 
     /*
+    * REQUIRES: newTitle is not already the title of another drawing in the list of drawings
     * MODIFIES: this, d
     * EFFECTS: changes the title of the drawing
     */
@@ -58,33 +96,5 @@ public class Gallery {
     */
     public void editColor(Drawing d, Color newColor) {
 
-    }
-
-    /*
-    * EFFECTS: returns true if a drawing with the given title exists in the list of drawings
-    */
-    public boolean containsDrawingWithTitle(String title) {
-        return true; // stub
-    }
-
-    /*
-    * EFFECTS: returns Drawing object with matching title from list of drawings, or throws an exception 
-    */
-    public Drawing findDrawing(String title) {
-        return new Drawing("stub", 0, 0, null);
-    }
-
-    /*
-    * EFFECTS: returns a list of all drawings that are marked as in progress
-    */
-    public List<Drawing> inProgress() {
-        return new ArrayList<>(); // stub
-    }
-
-    /*
-    * EFFECTS: returns a list of all drawings that are marked as complete
-    */
-    public List<Drawing> complete() {
-        return new ArrayList<>(); // stub
-    }
+    }     
 }

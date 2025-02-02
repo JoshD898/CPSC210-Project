@@ -56,7 +56,7 @@ public class TestDrawing {
     @Test
     void testSetHeight() {
         assertEquals(d1.getHeight(), 200);
-        d1.setWidth(1000);
+        d1.setHeight(1000);
         assertEquals(d1.getHeight(), 1000);;
     }
 
@@ -72,12 +72,10 @@ public class TestDrawing {
     @Test
     void testToString() {
         assertEquals(d1.toString(), 
-        "Title: Sunrise, Width: 200px, Height: 200px, Color: (0,0,0), Status: In progress");
+                     "Title: Sunrise, Width: 200px, Height: 200px, Color: (0,0,0), Status: In progress");
 
         d2.changeStatus();
         assertEquals(d2.toString(), 
-        "Title: Ocean, Width: 100px, Height: 500px, Color: (100,50,60), Status: Complete");
+                     "Title: Ocean, Width: 100px, Height: 500px, Color: (100,50,60), Status: Complete");
     }
-
-
 }

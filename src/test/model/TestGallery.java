@@ -2,7 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import java.awt.Color;
@@ -57,7 +57,7 @@ public class TestGallery {
         assertEquals(g1.getDrawingList().size(), 2);
         
         assertEquals(g1.getCompleteList().size(), 1);
-        assertTrue(g1.getCompleteList().contains(d2));
+        assertTrue(g1.getCompleteList().contains(d1));
     }
 
     @Test
@@ -72,7 +72,9 @@ public class TestGallery {
     void testGetDrawing() {
         g1.addDrawing(d1);
         assertEquals(g1.getDrawing("Sunrise"), d1);
-        assertNotEquals(g1.getDrawing("Sunrise"), d2);
+        g1.addDrawing(d2);
+        assertEquals(g1.getDrawing("Sunrise"), d1);
+        assertEquals(g1.getDrawing("Ocean"), d2);
     }      
 
     @Test
@@ -101,8 +103,8 @@ public class TestGallery {
 
     @Test
     void testEditDimensions() {
-        assertEquals(d1.getWidth(), 100);
-        assertEquals(d1.getHeight(), 100);
+        assertEquals(d1.getWidth(), 200);
+        assertEquals(d1.getHeight(), 200);
         g1.addDrawing(d1);
         g1.editDimensions(d1, 50, 90);
         assertEquals(d1.getWidth(), 50);

@@ -7,46 +7,67 @@ import java.awt.Color;
 // Represents a gallery containing an arbitrary number of drawings
 public class Gallery {
 
+    List<Drawing> drawingList;
+
     /*
      * EFFECTS: constructs a new Gallery object
      */
     public Gallery() {
+        drawingList = new ArrayList<>();
     }
 
     /*
     * REQUIRES: the title of the new drawing must be unique
     * MODIFIES: this
-    * EFFECTS: adds a new drawing to the list of drawings
+    * EFFECTS: adds a new drawing to drawingList
     */
     public void addDrawing(Drawing d){
+        drawingList.add(d);
     }
 
-        /*
+    /*
      * EFFECTS: returns a list of all drawings in galley
      */
     public List<Drawing> getDrawingList() {
-        return new ArrayList<>(); // stub
+        return drawingList; // stub
     }
 
     /*
     * EFFECTS: returns a list of all drawings that are marked as in progress
     */
     public List<Drawing> getInProgressList() {
-        return new ArrayList<>(); // stub
+        List<Drawing> arr = new ArrayList<>();
+        for (Drawing d : drawingList) {
+            if (d.getStatus().equals("In progress")) {
+                arr.add(d);
+            }
+        }
+        return arr;
     }
 
     /*
     * EFFECTS: returns a list of all drawings that are marked as complete
     */
     public List<Drawing> getCompleteList() {
-        return new ArrayList<>(); // stub
+        List<Drawing> arr = new ArrayList<>();
+        for (Drawing d : drawingList) {
+            if (d.getStatus().equals("Complete")) {
+                arr.add(d);
+            }
+        }
+        return arr;
     }
 
     /*
     * EFFECTS: returns true if a drawing with the given title exists in the list of drawings
     */
     public boolean containsDrawingWithTitle(String title) {
-        return true; // stub
+        for (Drawing d : drawingList) {
+            if (d.getTitle().equals(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
@@ -54,7 +75,15 @@ public class Gallery {
     * EFFECTS: returns Drawing object with matching title from list of drawings
     */
     public Drawing getDrawing(String title) {
-        return new Drawing("stub", 0, 0, null);
+        int index = 0;
+
+        for (int i = 0; i < drawingList.size(); i++ ) {
+            if (drawingList.get(i).getTitle().equals(title)) {
+                index = i;
+            }
+        }
+        
+        return drawingList.get(index);
     }
 
     /*
@@ -63,6 +92,7 @@ public class Gallery {
     * EFFECTS: removes a drawing from the list of drawings
     */
     public void removeDrawing(Drawing d) {
+        drawingList.remove(d);
     }
 
     /*
@@ -70,6 +100,7 @@ public class Gallery {
     * EFFECTS: changes the completion status of the drawing
     */
     public void changeStatus(Drawing d) {
+        d.changeStatus();
     }
 
     /*
@@ -78,7 +109,7 @@ public class Gallery {
     * EFFECTS: changes the title of the drawing
     */
     public void editTitle(Drawing d, String newTitle) {
-
+        d.setTitle(newTitle);
     }
 
     /*
@@ -87,7 +118,8 @@ public class Gallery {
     * EFFECTS: changes the width and height of the given drawing
     */
     public void editDimensions(Drawing d, int newWidth, int newHeight) {
-
+        d.setWidth(newWidth);
+        d.setHeight(newHeight);
     }
 
     /*
@@ -95,6 +127,6 @@ public class Gallery {
     * EFFECTS: changes the color of the given drawing
     */
     public void editColor(Drawing d, Color newColor) {
-
+        d.setColor(newColor);
     }     
 }

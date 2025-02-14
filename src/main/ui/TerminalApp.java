@@ -163,7 +163,6 @@ public class TerminalApp {
         switch (input) {
             case "s":
                 selectDrawing();
-                editMenuCurrentlyShowing = false;
                 break;
             case "t":
                 editTitle();
@@ -324,6 +323,7 @@ public class TerminalApp {
             currentDrawing = null;
             System.out.println("Drawing successfully removed!");
         }
+        printDivider();
     }
 
     /*

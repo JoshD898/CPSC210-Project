@@ -63,10 +63,10 @@ public class TestDrawing {
     @Test
     void testChangeStatus() {
         assertEquals(d1.getStatus(), "In progress");
-        d1.changeStatus();
+        d1.markAsComplete();
         assertEquals(d1.getStatus(), "Complete");
-        d1.changeStatus();
-        assertEquals(d1.getStatus(), "In progress");
+        d1.markAsComplete();
+        assertEquals(d1.getStatus(), "Complete");
     }
 
     @Test
@@ -74,7 +74,7 @@ public class TestDrawing {
         assertEquals(d1.toString(), 
                      "Title: Sunrise, Width: 200px, Height: 200px, Color: (0,0,0), Status: In progress");
 
-        d2.changeStatus();
+        d2.markAsComplete();
         assertEquals(d2.toString(), 
                      "Title: Ocean, Width: 100px, Height: 500px, Color: (100,50,60), Status: Complete");
     }

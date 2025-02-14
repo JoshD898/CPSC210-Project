@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Color;
 
 // Represents a gallery containing an arbitrary number of drawings
 public class Gallery {
@@ -29,7 +28,7 @@ public class Gallery {
      * EFFECTS: returns a list of all drawings in galley
      */
     public List<Drawing> getDrawingList() {
-        return drawingList; // stub
+        return drawingList;
     }
 
     /*
@@ -94,39 +93,4 @@ public class Gallery {
     public void removeDrawing(Drawing d) {
         drawingList.remove(d);
     }
-
-    /*
-    * MODIFIES: this, d
-    * EFFECTS: changes the completion status of the drawing
-    */
-    public void changeStatus(Drawing d) {
-        d.changeStatus();
-    }
-
-    /*
-    * REQUIRES: newTitle is not already the title of another drawing in the list of drawings
-    * MODIFIES: this, d
-    * EFFECTS: changes the title of the drawing
-    */
-    public void editTitle(Drawing d, String newTitle) {
-        d.setTitle(newTitle);
-    }
-
-    /*
-    * REQUIRES: newWidth and newHeight both >= 0
-    * MODIFIES: this, d
-    * EFFECTS: changes the width and height of the given drawing
-    */
-    public void editDimensions(Drawing d, int newWidth, int newHeight) {
-        d.setWidth(newWidth);
-        d.setHeight(newHeight);
-    }
-
-    /*
-    * MODIFIES: this, d
-    * EFFECTS: changes the color of the given drawing
-    */
-    public void editColor(Drawing d, Color newColor) {
-        d.setColor(newColor);
-    }     
 }

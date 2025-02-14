@@ -12,7 +12,7 @@ This project interests me because I enjoy drawing, and I believe it will be a gr
 
 ### User Stories:
 - As a user, I want to be able to add a drawing to my gallery while specifying the title, color and shape.
-- As a user, I want to be able to change a drawing status back and forth between *in progress* and *complete*.
+- As a user, I want to be able to change a drawing status one-directionally from *in progress* to *complete*.
 - As a user, I want to be able to edit drawings that are *in progress*.
 - As a user, I want to be able to remove drawings from my gallery.
 - As a user, I want to be able to view all drawings in my gallery, and also filter by drawing status.

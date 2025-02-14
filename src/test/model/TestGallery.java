@@ -36,7 +36,7 @@ public class TestGallery {
 
     @Test
     void testGetInProgressList() {
-        d1.changeStatus();
+        d1.markAsComplete();
         assertEquals(d1.getStatus(), "Complete");
         assertEquals(d2.getStatus(), "In progress");
         g1.addDrawing(d1);
@@ -49,7 +49,7 @@ public class TestGallery {
 
     @Test
     void testGetCompletedList() {
-        d1.changeStatus();
+        d1.markAsComplete();
         assertEquals(d1.getStatus(), "Complete");
         assertEquals(d2.getStatus(), "In progress");
         g1.addDrawing(d1);
@@ -84,38 +84,4 @@ public class TestGallery {
         g1.removeDrawing(d1);
         assertEquals(g1.getDrawingList().size(), 0);
     }
-
-    @Test
-    void testChangeStatus() {
-        assertEquals(d1.getStatus(), "In progress");
-        g1.addDrawing(d1);
-        g1.changeStatus(d1);
-        assertEquals(d1.getStatus(), "Complete");
-    }
-
-    @Test
-    void testEditTitle() {
-        assertEquals(d1.getTitle(), "Sunrise");
-        g1.addDrawing(d1);
-        g1.editTitle(d1, "Sunset");
-        assertEquals(d1.getTitle(), "Sunset");
-    }
-
-    @Test
-    void testEditDimensions() {
-        assertEquals(d1.getWidth(), 200);
-        assertEquals(d1.getHeight(), 200);
-        g1.addDrawing(d1);
-        g1.editDimensions(d1, 50, 90);
-        assertEquals(d1.getWidth(), 50);
-        assertEquals(d1.getHeight(), 90);
-    }
-
-    @Test
-    void testEditColor() {
-        assertEquals(d1.getColor(), new Color(0,0,0));
-        g1.addDrawing(d1);
-        g1.editColor(d1, new Color(100,50,80));
-        assertEquals(d1.getColor(), new Color(100,50,80));
-    }  
 }

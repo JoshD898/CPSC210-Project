@@ -83,10 +83,10 @@ public class Drawing {
 
     /*
      * MODIFIES: this
-     * EFFECTS: isComplete is set to the opposite of its current value
+     * EFFECTS: isComplete is set to true
      */
-    public void changeStatus() {
-        isComplete = !(isComplete);
+    public void markAsComplete() {
+        isComplete = true;
     }
 
     /*

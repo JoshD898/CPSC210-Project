@@ -20,7 +20,7 @@ public class Gallery {
     * MODIFIES: this
     * EFFECTS: adds a new drawing to drawingList
     */
-    public void addDrawing(Drawing d){
+    public void addDrawing(Drawing d) {
         drawingList.add(d);
     }
 
@@ -76,7 +76,7 @@ public class Gallery {
     public Drawing getDrawing(String title) {
         int index = 0;
 
-        for (int i = 0; i < drawingList.size(); i++ ) {
+        for (int i = 0; i < drawingList.size(); i++) {
             if (drawingList.get(i).getTitle().equals(title)) {
                 index = i;
             }

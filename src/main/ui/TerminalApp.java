@@ -190,7 +190,7 @@ public class TerminalApp {
 
     /*
      * MODIFIES: this
-     * EFFECTS: adds a drawing to the gallery, checking that the title is unique and rbg colors are valid
+     * EFFECTS: adds a drawing to the gallery based on the user input
      */
     public void addDrawing() {
         printDivider();

@@ -8,6 +8,7 @@ import java.util.List;
 import java.awt.Color;
 
 // An application interface that allows users to modify and interact with their gallery via the console
+// ATTRIBUTION: Code structure loosely based on the Flashcard Reviewer project
 public class TerminalApp {
 
     private Gallery gallery;
@@ -36,7 +37,6 @@ public class TerminalApp {
             }
         }
     }
-
 
     /*
      * MODIFIES: this

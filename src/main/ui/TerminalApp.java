@@ -67,6 +67,7 @@ public class TerminalApp {
     /*
      * EFFECTS: display a list of commans that can be used in the main menu
      */
+    // TODO Add option to manage save files (open, rename, delete)
     public void displayMainMenu() {
         printDivider();
         System.out.println("Main Menu");
@@ -86,6 +87,7 @@ public class TerminalApp {
     /*
      * EFFECTS: process the user's input in the main menu
      */
+    // TODO Add option to manage save files (open, rename, delete)
     @SuppressWarnings("methodlength")
     public void processMainMenuInputs(String input) {
         switch (input) {
@@ -177,7 +179,7 @@ public class TerminalApp {
                 markAsComplete();
                 break;
             case "x":
-                delete();
+                deleteDrawing();
                 break;
             case "r":
                 editMenuCurrentlyShowing = false;
@@ -186,6 +188,70 @@ public class TerminalApp {
                 showMainMenu = true;
                 showEditMenu = false;
         }
+    }
+
+    /*
+     * EFFECTS: display and process the user's input for the save menu
+     */
+    public void handleSaveMenu() {
+        // TODO
+    }
+
+    /*
+     * EFFECTS: display a list of commands that can be used in the save menu
+     */
+    public void displaySaveMenu() {
+        // TODO
+    }
+
+    /*
+     * EFFECTS: process the user's input in the save menu
+     */
+    public void processSaveMenuInputs() {
+        // TODO
+    }
+
+    /*
+     * EFFECTS: displays a list of available save files
+     */
+    public void displaySaveFiles() {
+        // TODO
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: changes currentSaveFile to the one with the corrresponding filename, 
+     *          has no effect if corresponding filename doesn't exist
+     */
+    public void selectSaveFile(String filename) {
+        // TODO
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads currentSaveFile if one is selected,
+     *          has no effect if currentSaveFile == null
+     */
+    public void loadSaveFile() {
+        // TODO
+    }
+
+    /*
+     * MODIFIES: this, ./data
+     * EFFECTS: changes the file name of the currently selected save file,
+     *          has no effect if currentSaveFile == null
+     */
+    public void renameSaveFile(String filename) {
+        // TODO
+    }
+
+    /*
+     * MODIFIES: this, ./data
+     * EFFECTS: deletes the currently selected save file from ./data and sets currentSaveFile to null,
+     *          has no effect if currentSaveFile == null
+     */
+    public void deleteSaveFile() {
+        // TODO
     }
 
     /*
@@ -221,7 +287,7 @@ public class TerminalApp {
     }
 
     /*
-     * MODIFIES: this, currentDrawing
+     * MODIFIES: this
      * EFFECTS: changes the dimensions of currentDrawing based on user input
      */
     public void editDimensions() {
@@ -314,7 +380,7 @@ public class TerminalApp {
     * MODIFIES: this
     * EFFECTS: removes currentDrawing from the gallery
     */
-    public void delete() {
+    public void deleteDrawing() {
         printDivider();
         if (currentDrawing == null) {
             System.out.println("You must select a drawing to delete.");

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import java.awt.Color;
 
-public class TestGallery {
+public class GalleryTest {
 
     Gallery g1;
     Drawing d1;

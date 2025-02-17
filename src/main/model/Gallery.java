@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 // Represents a gallery containing an arbitrary number of drawings
 public class Gallery {
@@ -92,5 +94,19 @@ public class Gallery {
     */
     public void removeDrawing(Drawing d) {
         drawingList.remove(d);
+    }
+
+    /*
+     * EFFECTS: return a JSON object representation of the gallery
+     */
+    public JSONObject toJson() {
+        return null; // TODO
+    }
+
+    /*
+     * EFFECTS: return a JSON array representation of drawings in the gallery
+     */
+    private JSONArray drawingsToJson() {
+        return null; // TODO
     }
 }

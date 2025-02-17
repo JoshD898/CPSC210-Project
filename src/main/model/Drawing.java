@@ -2,6 +2,8 @@ package model;
 
 import java.awt.Color;
 
+import org.json.JSONObject;
+
 // Represent a drawing having a title, color, width (in pixels) and height (in pixels)
 public class Drawing {
 
@@ -101,5 +103,12 @@ public class Drawing {
                 color.getGreen(),
                 color.getBlue(),
                 getStatus());
+    }
+
+    /*
+     * EFFECTS: return a JSON object representation of drawing
+     */
+    public JSONObject toJson() {
+        return null; // TODO
     }
 }

@@ -6,7 +6,7 @@ import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestDrawing {
+public class DrawingTest {
     
     Drawing d1;
     Drawing d2;

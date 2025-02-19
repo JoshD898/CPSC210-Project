@@ -2,10 +2,14 @@ package ui;
 
 import model.Gallery;
 import model.Drawing;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.Scanner;
 import java.util.List;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.io.*;
 
 // An application interface that allows users to modify and interact with their gallery via the console
 // ATTRIBUTION: Code structure loosely based on the Flashcard Reviewer project
@@ -13,12 +17,15 @@ public class TerminalApp {
 
     private Gallery gallery;
     private Drawing currentDrawing;
-
+    private File currentSaveFile;
     private Scanner scanner;
+
     private Boolean showMainMenu;
     private Boolean showEditMenu;
+    private Boolean showSaveMenu;
     private Boolean mainMenuCurrentlyShowing;
     private Boolean editMenuCurrentlyShowing;
+    private Boolean saveMenuCurrentlyShowing;
 
     /*
      * EFFECTS: creates an instance of the TerminalApp ui application
@@ -29,11 +36,13 @@ public class TerminalApp {
         printDivider();
         System.out.print("Welcome to your art gallery application!\n");
 
-        while (showMainMenu || showEditMenu) {
+        while (showMainMenu || showEditMenu || showSaveMenu) {
             if (showMainMenu) {
                 handleMainMenu();
             } else if (showEditMenu) {
                 handleEditMenu();
+            } else {
+                handleSaveMenu();
             }
         }
     }
@@ -44,11 +53,17 @@ public class TerminalApp {
      */
     public void init() {
         gallery = new Gallery();
+        currentDrawing = null;
+        currentSaveFile = null;
+
         scanner = new Scanner(System.in);
+
         showMainMenu = true;
         showEditMenu = false;
+        showSaveMenu = false;
         mainMenuCurrentlyShowing = false;
         editMenuCurrentlyShowing = false;
+        saveMenuCurrentlyShowing = false;
     }
 
     /*
@@ -59,6 +74,7 @@ public class TerminalApp {
             displayMainMenu();
             mainMenuCurrentlyShowing = true;
             editMenuCurrentlyShowing = false;
+            saveMenuCurrentlyShowing = false;
         }
         String input = scanner.nextLine();
         processMainMenuInputs(input);
@@ -110,12 +126,14 @@ public class TerminalApp {
                 showEditMenu = true;
                 break;
             case "o":
-                break; //TODO
+                showMainMenu = false;
+                showSaveMenu = true;
+                break;
             case "r":
                 mainMenuCurrentlyShowing = false;
                 break;
             case "q":
-                showMainMenu = false;
+                saveOnQuitMenu();
         }
     }
 
@@ -195,31 +213,35 @@ public class TerminalApp {
      * EFFECTS: display and process the user's input for the save menu
      */
     public void handleSaveMenu() {
-        // TODO
+        if (!saveMenuCurrentlyShowing) {
+            displaySaveMenu();
+            saveMenuCurrentlyShowing = true;
+            mainMenuCurrentlyShowing = false;
+        }
+        String input = scanner.nextLine();
+        processSaveMenuInputs(input);
     }
 
     /*
      * EFFECTS: display a list of commands that can be used in the save menu
      */
     public void displaySaveMenu() {
-        // TODO
         printDivider();
         System.out.println("Save Menu");
         printDivider();
-        if (currentDrawing == null) {
-            System.out.println("No drawing is currently selected.");
+        if (currentSaveFile == null) {
+            System.out.println("No save file is currently selected.");
         } else {
-            System.out.println("The currently selected drawing is: \n");
-            System.out.println(currentDrawing.toString());
+            System.out.println("The currently selected save file is: \n");
+            System.out.println(currentSaveFile.getName());
         }
         printDivider();
         System.out.println("Please select an option:\n");
-        System.out.println("s: Change the selected drawing");
-        System.out.println("t: Edit selected drawing title");
-        System.out.println("d: Edit selected drawing dimensions");
-        System.out.println("c: Edit selected drawing color");
-        System.out.println("m: Mark selected drawing as complete (irreversible)");
-        System.out.println("x: Delete selcted drawing");
+        System.out.println("g: Save the current gallery");
+        System.out.println("s: Change the selected save file");
+        System.out.println("v: View all save files");
+        System.out.println("l: Load selected save file");
+        System.out.println("x: Delete selected save file");
         System.out.println("r: Refresh menu");
         System.out.println("q: Return to main menu");
         printDivider();
@@ -228,51 +250,169 @@ public class TerminalApp {
     /*
      * EFFECTS: process the user's input in the save menu
      */
-    public void processSaveMenuInputs() {
-        // TODO
+    public void processSaveMenuInputs(String input) {
+        switch (input) {
+            case "g":
+                save();
+                break;
+            case "s":
+                selectSaveFile();
+                break;
+            case "v":
+                displaySaveFiles();
+                break;
+            case "l":
+                loadSaveFile();
+                break;
+            case "x":
+                deleteSaveFile();
+                break;
+            case "r":
+                saveMenuCurrentlyShowing = false;
+                break;
+            case "q":
+                showMainMenu = true;
+                showSaveMenu = false;
+        }
     }
 
     /*
-     * EFFECTS: displays a list of available save files
+     * EFFECTS: prompts the user to save before quitting application
+     */
+    public void saveOnQuitMenu() {
+        printDivider();
+        System.out.println("Would you like to save your current gallery? (y/n)");
+
+        String choice;
+        
+        do {
+            choice = scanner.nextLine();
+        } while (!(choice.equals("y") || choice.equals("n")));
+
+        if (choice.equals("y")) {
+            save();
+        }
+
+        showMainMenu = false;
+        printDivider();
+    }
+
+    /*
+     * MODIFIES: ./data
+     * EFFECTS: saves the current gallery to JSON
+     */
+    public void save() {
+        printDivider();
+        System.out.println("Enter the name of the new save file: ");
+
+        while (true) {
+            try {
+                JsonWriter writer = new JsonWriter(getUniqueSaveName());
+                writer.open();
+                writer.write(gallery, currentDrawing);
+                writer.close();
+                System.out.println("Gallery successfully saved!");
+                break;
+            } catch (IOException e) {
+                System.out.println("Invalid filename. Please try again: ");
+            }
+        }
+        printDivider();
+    }
+
+    /*
+     * EFFECTS: displays a list of available save files in ./data
      */
     public void displaySaveFiles() {
-        // TODO
+        printDivider();
+        for (File file : getSaveFileList()) {
+            String str = file.getName();
+            System.out.println(str.substring(0, str.length() - 5));
+        }
+        printDivider();
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: changes currentSaveFile to the one with the corrresponding filename, 
-     *          has no effect if corresponding filename doesn't exist
+     * EFFECTS: changes currentSaveFile to the one with the corrresponding filename
      */
-    public void selectSaveFile(String filename) {
-        // TODO
+    public void selectSaveFile() {
+        printDivider();
+
+        System.out.println("Enter the name of the save file to select: ");
+        String filename = scanner.nextLine();
+        Boolean fileFound = false;
+
+        for (File file : getSaveFileList()) {
+            if (file.getName().equals(filename + ".json")) {
+                currentSaveFile = file;
+                fileFound = true;
+                break;
+            }
+        } 
+
+        if (fileFound) {
+            System.out.println("Selected file has been updated!");
+        } else {
+            System.out.println("Could not find a file with a matching name.");
+        }
+
+        printDivider();
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: loads currentSaveFile if one is selected,
-     *          has no effect if currentSaveFile == null
+     * EFFECTS: loads currentSaveFile if one is selected
      */
     public void loadSaveFile() {
-        // TODO
+        printDivider();
+        if (currentSaveFile == null) {
+            System.out.println("You must select a save file to load.");
+        } else {
+            try {
+                JsonReader reader = new JsonReader("./data/" + currentSaveFile.getName());
+                gallery = reader.readGallery();
+                String title = reader.readSelectedDrawingTitle();
+                
+                currentDrawing = (title == null) ? null : gallery.getDrawing(title);
+                
+                System.out.println("File successfully loaded!");
+            } catch (IOException e) {
+                System.out.println("Something went wrong while reading the file.");
+            }
+        }
+        printDivider();
     }
 
     /*
      * MODIFIES: this, ./data
-     * EFFECTS: changes the file name of the currently selected save file,
-     *          has no effect if currentSaveFile == null
-     */
-    public void renameSaveFile(String filename) {
-        // TODO
-    }
-
-    /*
-     * MODIFIES: this, ./data
-     * EFFECTS: deletes the currently selected save file from ./data and sets currentSaveFile to null,
-     *          has no effect if currentSaveFile == null
+     * EFFECTS: deletes the currently selected save file from ./data and sets currentSaveFile to null
      */
     public void deleteSaveFile() {
-        // TODO
+        printDivider();
+        if (currentSaveFile == null) {
+            System.out.println("You must select a save file to delete.");
+        } else {
+            currentSaveFile.delete();
+            currentSaveFile = null;
+            System.out.println("File successfully deleted!");
+        }
+        printDivider();
+    }
+
+    /*
+     * EFFECTS: creates a list of all the filesnames in ./data, ignoring the ./data/test folder
+     * ATTRIBUTION: https://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
+     */
+    public List<File> getSaveFileList() {
+        List<File> arr = new ArrayList<>();
+        File[] files = new File("./data").listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                arr.add(file);
+            }
+        }
+        return arr;
     }
 
     /*
@@ -408,7 +548,7 @@ public class TerminalApp {
         } else {
             gallery.removeDrawing(currentDrawing);
             currentDrawing = null;
-            System.out.println("Drawing successfully removed!");
+            System.out.println("Drawing successfully deleted!");
         }
         printDivider();
     }
@@ -436,7 +576,7 @@ public class TerminalApp {
 
         if (gallery.containsDrawingWithTitle(title)) {
             currentDrawing = gallery.getDrawing(title);
-            System.out.println("Selected drawing has been updated.");
+            System.out.println("Selected drawing has been updated!");
         } else {
             System.out.println("Could not find a drawing with a matching title.");
         }
@@ -455,6 +595,26 @@ public class TerminalApp {
         System.out.println(String.format("%d drawings are in progress.", 
                             gallery.getInProgressList().size()));
         printDivider();
+    }
+
+    /*
+     * EFFECTS: get a unique filename from the user
+     */
+    public String getUniqueSaveName() {
+        File file;
+        String filename;
+        
+        do {
+            filename = scanner.nextLine();
+            file = new File("./data/" + filename + ".json");
+
+            if (file.exists()) {
+                System.out.println("That filename already exists. Please try again: ");
+            }
+
+        } while (file.exists());
+        
+        return "./data/" + filename + ".json";
     }
 
     /*

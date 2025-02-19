@@ -18,4 +18,4 @@ This project interests me because I enjoy drawing, and I believe it will be a gr
 
 ### Phase 2 User Stories:
 - As a user, I want to have the option to save my current gallery to file when I quit the application.
-- As a user, I want to be able to load, rename and delete multiple save files.
+- As a user, I want to be able to load, save and delete multiple save files.

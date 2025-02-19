@@ -41,7 +41,6 @@ public class JsonReaderTest {
         
     }
 
-    @SuppressWarnings("unused")
     @Test
     void testReaderNonexistentFile() {
         try {

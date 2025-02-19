@@ -28,7 +28,7 @@ public class JsonReader {
     /*
      * EFFECTS: read gallery from file and return it 
      */
-    public Gallery readGallery() throws IOException{
+    public Gallery readGallery() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonobject = new JSONObject(jsonData);
         return parseGallery(jsonobject);
@@ -37,7 +37,7 @@ public class JsonReader {
     /*
      * EFFECTS: read selected drawing from file and return it
      */
-    public String readSelectedDrawingTitle() throws IOException{
+    public String readSelectedDrawingTitle() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         String title = jsonObject.optString("selectedDrawingTitle");
@@ -51,7 +51,7 @@ public class JsonReader {
      * REQUIRES: source file exists in ./data
      * EFFECTS: reads source file as string then returns it
      */
-    private String readFile(String source) throws IOException{
+    private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {

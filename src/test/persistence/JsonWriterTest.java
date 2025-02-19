@@ -14,8 +14,6 @@ public class JsonWriterTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            Gallery gallery = new Gallery();
-
             JsonWriter writer = new JsonWriter("./data/illegal\0filename.json");
             writer.open();
 
@@ -30,17 +28,17 @@ public class JsonWriterTest {
         try {
             Gallery gallery = new Gallery();
 
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyGalleryNullDrawing.json");
+            JsonWriter writer = new JsonWriter("./data/test/testWriterEmptyGalleryNullDrawing.json");
             writer.open();
             writer.write(gallery, null);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyGalleryNullDrawing.json");
+            JsonReader reader = new JsonReader("./data/test/testWriterEmptyGalleryNullDrawing.json");
             gallery = reader.readGallery();
-            Drawing selectedDrawing = reader.readSelectedDrawing();
+            String selectedDrawingTitle = reader.readSelectedDrawingTitle();
 
             assertEquals(gallery.getDrawingList().size(), 0);
-            assertNull(selectedDrawing);
+            assertNull(selectedDrawingTitle);
 
         } catch (IOException e) {
             fail("IOEception should not have been thrown");
@@ -56,17 +54,17 @@ public class JsonWriterTest {
             gallery.addDrawing(d1);
             gallery.addDrawing(d2);
 
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralGalleryAndDrawing.json");
+            JsonWriter writer = new JsonWriter("./data/test/testWriterGeneralGalleryAndDrawing.json");
             writer.open();
             writer.write(gallery, d1);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralGalleryAndDrawing.json");
+            JsonReader reader = new JsonReader("./data/test/testWriterGeneralGalleryAndDrawing.json");
             gallery = reader.readGallery();
-            Drawing selectedDrawing = reader.readSelectedDrawing();
+            String selectedDrawingTitle = reader.readSelectedDrawingTitle();
 
             assertEquals(gallery.getDrawingList().size(), 2);
-            assertTrue(selectedDrawing.getTitle().equals("Sunrise"));
+            assertTrue(selectedDrawingTitle.equals("Sunrise"));
             
         } catch (IOException e) {
             fail("IOEception should not have been thrown");

@@ -100,13 +100,19 @@ public class Gallery {
      * EFFECTS: return a JSON object representation of the gallery
      */
     public JSONObject toJson() {
-        return null; // TODO
+        JSONObject json = new JSONObject();
+        json.put("gallery", drawingsToJson());
+        return json;
     }
 
     /*
      * EFFECTS: return a JSON array representation of drawings in the gallery
      */
     private JSONArray drawingsToJson() {
-        return null; // TODO
+        JSONArray jsonarray = new JSONArray();
+        for (Drawing d: drawingList) {
+            jsonarray.put(d.toJson());
+        }
+        return jsonarray;
     }
 }

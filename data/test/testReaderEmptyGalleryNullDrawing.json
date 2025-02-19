@@ -1,6 +1,4 @@
 {
-    "gallery": {
-        "drawings": []
-    },
-    "selectedDrawing": null
+    "gallery": [],
+    "selectedDrawingTitle": null
 }

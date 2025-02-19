@@ -67,7 +67,6 @@ public class TerminalApp {
     /*
      * EFFECTS: display a list of commans that can be used in the main menu
      */
-    // TODO Add option to manage save files (open, rename, delete)
     public void displayMainMenu() {
         printDivider();
         System.out.println("Main Menu");
@@ -79,6 +78,7 @@ public class TerminalApp {
         System.out.println("p: View in-progress drawings");
         System.out.println("a: Add a new drawing");
         System.out.println("e: Edit or delete an existing drawing");
+        System.out.println("o: Open and manage save files");
         System.out.println("r: Refresh menu");
         System.out.println("q: Quit application");
         printDivider();
@@ -87,7 +87,6 @@ public class TerminalApp {
     /*
      * EFFECTS: process the user's input in the main menu
      */
-    // TODO Add option to manage save files (open, rename, delete)
     @SuppressWarnings("methodlength")
     public void processMainMenuInputs(String input) {
         switch (input) {
@@ -110,6 +109,8 @@ public class TerminalApp {
                 showMainMenu = false;
                 showEditMenu = true;
                 break;
+            case "o":
+                break; //TODO
             case "r":
                 mainMenuCurrentlyShowing = false;
                 break;
@@ -202,6 +203,26 @@ public class TerminalApp {
      */
     public void displaySaveMenu() {
         // TODO
+        printDivider();
+        System.out.println("Save Menu");
+        printDivider();
+        if (currentDrawing == null) {
+            System.out.println("No drawing is currently selected.");
+        } else {
+            System.out.println("The currently selected drawing is: \n");
+            System.out.println(currentDrawing.toString());
+        }
+        printDivider();
+        System.out.println("Please select an option:\n");
+        System.out.println("s: Change the selected drawing");
+        System.out.println("t: Edit selected drawing title");
+        System.out.println("d: Edit selected drawing dimensions");
+        System.out.println("c: Edit selected drawing color");
+        System.out.println("m: Mark selected drawing as complete (irreversible)");
+        System.out.println("x: Delete selcted drawing");
+        System.out.println("r: Refresh menu");
+        System.out.println("q: Return to main menu");
+        printDivider();
     }
 
     /*

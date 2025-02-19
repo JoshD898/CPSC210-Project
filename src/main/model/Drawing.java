@@ -109,6 +109,14 @@ public class Drawing {
      * EFFECTS: return a JSON object representation of drawing
      */
     public JSONObject toJson() {
-        return null; // TODO
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("width", width);
+        json.put("height", height);
+        json.put("red", color.getRed());
+        json.put("green", color.getGreen());
+        json.put("blue", color.getBlue());
+        json.put("isComplete", isComplete);
+        return json;
     }
 }

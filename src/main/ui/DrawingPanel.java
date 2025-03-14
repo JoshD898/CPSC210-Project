@@ -11,19 +11,16 @@ import javax.swing.JPanel;
 import model.Drawing;
 
 /*
- * A panel that displays a drawing and it's title
+ * A panel that displays a drawing and its title
  */
-public class DrawingPanel extends JPanel{
-    private static final int PANEL_WIDTH = 200;
-    private static final int PANEL_HEIGHT = 300;
-    
+public class DrawingPanel extends JPanel{   
     private Color color;
     private int width;
     private int height;
     private String title;
 
     /*
-     * EFFECTS: sets the size and background color of the panel. Renders the drawing above the title.
+     * EFFECTS: Sets the size and background color of the panel.
      */
     public DrawingPanel(Drawing d, Boolean isSelected) {
         this.color = d.getColor();
@@ -31,7 +28,6 @@ public class DrawingPanel extends JPanel{
         this.height = d.getHeight();
         this.title = d.getTitle();
         
-        setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 
         if (isSelected) {
             setBackground(Color.GRAY);
@@ -48,7 +44,7 @@ public class DrawingPanel extends JPanel{
     }
 
     /*
-     * EFFECTS: Draws the square on the panel.
+     * EFFECTS: Draws the square and title on the panel.
      */
     private void drawDrawing(Graphics g) {
         int panelWidth = getWidth();
@@ -67,6 +63,4 @@ public class DrawingPanel extends JPanel{
         int textY = squareY + height + metrics.getHeight();
         g.drawString(title, textX, textY);
     }
-
-
 }

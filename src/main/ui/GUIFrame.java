@@ -61,6 +61,8 @@ public class GUIFrame extends JFrame {
         JButton editButton = new JButton("Edit");
         JButton deleteButton = new JButton("Delete");
 
+        addButton.addActionListener(e -> switchToEditPanel(true));
+        editButton.addActionListener(e -> switchToEditPanel(false));
         deleteButton.addActionListener(e -> handleDeleteButton());
 
         panel.add(addButton);
@@ -113,7 +115,7 @@ public class GUIFrame extends JFrame {
         try {
             JsonWriter writer = new JsonWriter("./data/save.json");
             writer.open();
-            writer.write(gallery, null);
+            writer.write(gallery, selectedDrawing);
             writer.close();
         } catch (IOException e) {
             // do nothing
@@ -122,22 +124,57 @@ public class GUIFrame extends JFrame {
 
     /*
      * MODIFIES: this
-     * EFFECTS: Removes selectedDrawing from the gallery
+     * EFFECTS: Removes selectedDrawing from the gallery, sets selectedDrawing to null.
      */
     private void handleDeleteButton() {
         gallery.removeDrawing(selectedDrawing);
         galleryPane.setViewportView(new GalleryPanel(gallery, this));
+        selectedDrawing = null;
+    }
+    
+    /*
+     * MODIFIES: this
+     * EFFECTS: Switches to the edit menu to add or edit a drawing, so long as a new drawing is being added or a drawing is currently selected to edit
+     */
+    private void switchToEditPanel(Boolean isNewDrawing) {
+        if (isNewDrawing || selectedDrawing != null) {
+            getContentPane().removeAll();  
+            add(new EditPanel(this, isNewDrawing));
+            revalidate();
+        }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Reset the frame to show the gallery panel and buttons
+     */
+    public void switchToGalleryPanel() {
+        getContentPane().removeAll();  
+        galleryPane.setViewportView(new GalleryPanel(gallery, this)); 
+        add(galleryPane);
+        add(editButtonPanel(), BorderLayout.SOUTH);
+        add(savePanel(), BorderLayout.NORTH);
+        revalidate();
+    }
+
+    /*
+     * EFFECTS: Returns selectedDrawing
+     */
     public Drawing getSelectedDrawing() {
         return selectedDrawing;
     }
 
+    /*
+     * EFFECTS: Sets selectedDrawing
+     */
     public void setSelectedDrawing(Drawing d) {
         selectedDrawing = d;
         galleryPane.setViewportView(new GalleryPanel(gallery, this));
     }
 
+    /*
+     * EFFECTS: Adds a drawing to the gallery
+     */
     public void addDrawing(Drawing d) {
         gallery.addDrawing(d);
     }

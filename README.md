@@ -24,9 +24,11 @@ This project interests me because I enjoy drawing, and I believe it will be a gr
 - As a user, I want to be able to load and save the state of the application from the GUI.
 - As a user, I want to be able to view, add, edit and delete my gallery drawings from the GUI.
 
-### Instructions for End User (TODO):
-- You can generate the first required action related to the user story "adding multiple Xs to a Y" by...
-- You can generate the second required action related to the user story "adding multiple Xs to a Y" by...
-- You can locate my visual component by...
-- You can save the state of my application by...
-- You can reload the state of my application by...
+### Instructions for End User:
+- You can add a new drawing to the gallery by clicking the `Add` button and specifying the drawing properties.
+- You can select a drawing by clicking on it. The background will change to grey when selected.
+- You can modify the properties of the selected drawing by clicking the `Edit` button.
+- You can delete the selected drawing by clicking the `Delete` button.
+- You can locate my visual component by... TODO
+- You can save the state of the application by clicking the `Save` button.
+- You can reload the state of the application by clicking the `Load` button.

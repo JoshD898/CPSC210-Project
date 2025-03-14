@@ -120,6 +120,10 @@ public class GUIFrame extends JFrame {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Removes selectedDrawing from the gallery
+     */
     private void handleDeleteButton() {
         gallery.removeDrawing(selectedDrawing);
         galleryPane.setViewportView(new GalleryPanel(gallery, this));
@@ -132,6 +136,10 @@ public class GUIFrame extends JFrame {
     public void setSelectedDrawing(Drawing d) {
         selectedDrawing = d;
         galleryPane.setViewportView(new GalleryPanel(gallery, this));
+    }
+
+    public void addDrawing(Drawing d) {
+        gallery.addDrawing(d);
     }
 }
 

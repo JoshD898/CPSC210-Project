@@ -1,9 +1,10 @@
 package ui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.FontMetrics;
 
 import javax.swing.JPanel;
@@ -13,7 +14,7 @@ import model.Drawing;
 /*
  * A panel that displays a drawing and its title
  */
-public class DrawingPanel extends JPanel{   
+public class DrawingPanel extends JPanel  {   
     private Color color;
     private int width;
     private int height;
@@ -22,19 +23,24 @@ public class DrawingPanel extends JPanel{
     /*
      * EFFECTS: Sets the size and background color of the panel.
      */
-    public DrawingPanel(Drawing d, Boolean isSelected) {
+    public DrawingPanel(Drawing d, GUIFrame guiFrame) {
         this.color = d.getColor();
         this.width = d.getWidth();
         this.height = d.getHeight();
         this.title = d.getTitle();
-        
 
-        if (isSelected) {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                guiFrame.setSelectedDrawing(d);
+            }
+        });
+
+        if (guiFrame.getSelectedDrawing() != null && title == guiFrame.getSelectedDrawing().getTitle()) {
             setBackground(Color.GRAY);
         } else {
             setBackground(Color.WHITE);
         }
-        
     }
 
     @Override

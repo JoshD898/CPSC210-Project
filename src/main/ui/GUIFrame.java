@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -39,7 +38,7 @@ public class GUIFrame extends JFrame {
 
         gallery = new Gallery();
 
-        galleryPane = new JScrollPane(new GalleryPanel(gallery));
+        galleryPane = new JScrollPane(new GalleryPanel(gallery, this));
 
         add(galleryPane);
         add(editButtonPanel(), BorderLayout.SOUTH);
@@ -61,6 +60,8 @@ public class GUIFrame extends JFrame {
         JButton addButton = new JButton("Add");
         JButton editButton = new JButton("Edit");
         JButton deleteButton = new JButton("Delete");
+
+        deleteButton.addActionListener(e -> handleDeleteButton());
 
         panel.add(addButton);
         panel.add(editButton);
@@ -97,7 +98,8 @@ public class GUIFrame extends JFrame {
         try {
             JsonReader reader = new JsonReader("./data/save.json");
             gallery = reader.readGallery();
-            galleryPane.setViewportView(new GalleryPanel(gallery));
+            selectedDrawing = gallery.getDrawing(reader.readSelectedDrawingTitle());
+            galleryPane.setViewportView(new GalleryPanel(gallery, this)); 
         } catch (IOException e) {
             // do nothing
         }
@@ -116,6 +118,20 @@ public class GUIFrame extends JFrame {
         } catch (IOException e) {
             // do nothing
         }
+    }
+
+    private void handleDeleteButton() {
+        gallery.removeDrawing(selectedDrawing);
+        galleryPane.setViewportView(new GalleryPanel(gallery, this));
+    }
+
+    public Drawing getSelectedDrawing() {
+        return selectedDrawing;
+    }
+
+    public void setSelectedDrawing(Drawing d) {
+        selectedDrawing = d;
+        galleryPane.setViewportView(new GalleryPanel(gallery, this));
     }
 }
 

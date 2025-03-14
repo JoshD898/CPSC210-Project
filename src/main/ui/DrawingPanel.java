@@ -2,7 +2,9 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.FontMetrics;
 
 import javax.swing.JPanel;
 
@@ -23,7 +25,20 @@ public class DrawingPanel extends JPanel{
     /*
      * EFFECTS: sets the size and background color of the panel. Renders the drawing above the title.
      */
-    public DrawingPanel(Drawing d) {
+    public DrawingPanel(Drawing d, Boolean isSelected) {
+        this.color = d.getColor();
+        this.width = d.getWidth();
+        this.height = d.getHeight();
+        this.title = d.getTitle();
+        
+        setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+
+        if (isSelected) {
+            setBackground(Color.GRAY);
+        } else {
+            setBackground(Color.WHITE);
+        }
+        
     }
 
     @Override
@@ -33,9 +48,25 @@ public class DrawingPanel extends JPanel{
     }
 
     /*
-     * EFFECTS: Draws the square and its title on the panel.
+     * EFFECTS: Draws the square on the panel.
      */
     private void drawDrawing(Graphics g) {
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
 
+        int squareX = (panelWidth - width) / 2;
+        int squareY = (panelHeight - height) / 2 - 20; 
+    
+        g.setColor(color);     
+        g.fillRect(squareX, squareY, width, height);
+
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.PLAIN, 14));
+        FontMetrics metrics = g.getFontMetrics();
+        int textX = (panelWidth - metrics.stringWidth(title)) / 2;
+        int textY = squareY + height + metrics.getHeight();
+        g.drawString(title, textX, textY);
     }
+
+
 }

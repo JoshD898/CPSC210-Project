@@ -29,6 +29,6 @@ This project interests me because I enjoy drawing, and I believe it will be a gr
 - You can select a drawing by clicking on it. The background will change to grey when selected.
 - You can modify the properties of the selected drawing by clicking the `Edit` button.
 - You can delete the selected drawing by clicking the `Delete` button.
-- You can locate my visual component by... TODO
+- You can locate my visual component by navigating to `./res/LoadingScreen.png`.
 - You can save the state of the application by clicking the `Save` button.
 - You can reload the state of the application by clicking the `Load` button.

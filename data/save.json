@@ -1,5 +1,5 @@
 {
-    "selectedDrawingTitle": null,
+    "selectedDrawingTitle": "Blue",
     "gallery": [
         {
             "red": 255,
@@ -17,6 +17,15 @@
             "width": 140,
             "title": "Red",
             "height": 330,
+            "isComplete": false
+        },
+        {
+            "red": 0,
+            "green": 0,
+            "blue": 242,
+            "width": 170,
+            "title": "Blue",
+            "height": 310,
             "isComplete": false
         }
     ]

@@ -18,18 +18,22 @@ import model.Drawing;
  */
 public class EditPanel extends JPanel {
     private JTextField titleField;
-    private JSpinner widthSpinner, heightSpinner;
-    private JSlider redSlider, greenSlider, blueSlider;
+    private JSpinner widthSpinner;
+    private JSpinner heightSpinner;
+    private JSlider redSlider;
+    private JSlider greenSlider;
+    private JSlider blueSlider;
     private JButton applyButton;
 
-    private GUIFrame guiFrame;
+    private UserInterface guiFrame;
     private Drawing selectedDrawing;
 
     /*
      * REQUIRES: If isNewDrawing is false, the guiFrame must have an active selected drawing.
-     * EFFECTS: Creates a new panel that allows for user to modify characteristics of a selected drawing, or set the characteristics of a new drawing
+     * EFFECTS: Creates a new panel that allows for user to modify characteristics of a selected drawing, 
+     *          or set the characteristics of a new drawing
      */
-    public EditPanel(GUIFrame guiFrame, Boolean isNewDrawing) {
+    public EditPanel(UserInterface guiFrame, Boolean isNewDrawing) {
         this.guiFrame = guiFrame;
         
         init();

@@ -17,9 +17,9 @@ public class GalleryPanel extends JPanel {
     /*
      * EFFECTS: Creates a new panel that is a vertical stack of DrawingPanels for every drawing in gallery
      */
-    private int MAX_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int MAX_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 
-    public GalleryPanel(Gallery gallery, GUIFrame guiFrame) {
+    public GalleryPanel(Gallery gallery, UserInterface guiFrame) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         List<Drawing> drawings = gallery.getDrawingList();

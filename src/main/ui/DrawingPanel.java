@@ -23,7 +23,7 @@ public class DrawingPanel extends JPanel  {
     /*
      * EFFECTS: Sets the size and background color of the panel.
      */
-    public DrawingPanel(Drawing d, GUIFrame guiFrame) {
+    public DrawingPanel(Drawing d, UserInterface guiFrame) {
         this.color = d.getColor();
         this.width = d.getWidth();
         this.height = d.getHeight();

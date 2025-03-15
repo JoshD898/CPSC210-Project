@@ -6,8 +6,10 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -19,9 +21,9 @@ import persistence.JsonWriter;
 /*
  * The main frame from which the gallery GUI is shown
  */
-public class GUIFrame extends JFrame {
-    private static int MENU_HEIGHT = 50;
-    private int MAX_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+public class UserInterface extends JFrame {
+    private static final int MENU_HEIGHT = 50;
+    private static final int MAX_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 
     private Gallery gallery;
     private Drawing selectedDrawing;
@@ -31,22 +33,38 @@ public class GUIFrame extends JFrame {
     /*
      * EFFECTS: Sets up the window in which the gallery will be shown
      */
-    public GUIFrame() {
+    public UserInterface() {
         super("My Gallery");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setUndecorated(false);
+        setSize(1024, 1024);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        showLoadingScreen();
 
         gallery = new Gallery();
-
         galleryPane = new JScrollPane(new GalleryPanel(gallery, this));
 
         add(galleryPane);
         add(editButtonPanel(), BorderLayout.SOUTH);
         add(savePanel(), BorderLayout.NORTH);
+        revalidate();
+    }
 
-        setSize(500, 500);
-        setLocationRelativeTo(null);
-        setVisible(true);
+    /*
+     * EFFECTS: Displays the loading screen image for 5 seconds, then clears the frame
+     */
+    private void showLoadingScreen() {
+        add(new JLabel(new ImageIcon("res/LoadingScreen.png")));
+        revalidate();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // Do nothing
+        }        
+
+        getContentPane().removeAll(); 
     }
 
     /*
@@ -94,7 +112,8 @@ public class GUIFrame extends JFrame {
 
     /*
      * MODIFIES: this
-     * EFFECTS: Sets the current gallery to that saved under the file "./data/save.json", then re-renders the gallery panel
+     * EFFECTS: Sets the current gallery to that saved under the file "./data/save.json", 
+     *          then re-renders the gallery panel
      */
     private void handleLoadButton() {
         try {
@@ -134,7 +153,7 @@ public class GUIFrame extends JFrame {
     
     /*
      * MODIFIES: this
-     * EFFECTS: Switches to the edit menu to add or edit a drawing, so long as a new drawing is being added or a drawing is currently selected to edit
+     * EFFECTS: Switches to the edit menu to add or edit a drawing
      */
     private void switchToEditPanel(Boolean isNewDrawing) {
         if (isNewDrawing || selectedDrawing != null) {

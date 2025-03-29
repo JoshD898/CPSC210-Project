@@ -32,3 +32,14 @@ This project interests me because I enjoy drawing, and I believe it will be a gr
 - You can locate my visual component by navigating to `./res/LoadingScreen.png`.
 - You can save the state of the application by clicking the `Save` button.
 - You can reload the state of the application by clicking the `Load` button.
+
+### Phase 4 Example of Logging Output:
+
+```
+Gallery loaded from file     |     Sat Mar 29 15:17:24 PDT 2025
+Added drawing: Sunset     |     Sat Mar 29 15:17:24 PDT 2025
+Added drawing: Waves     |     Sat Mar 29 15:17:34 PDT 2025
+Modified drawing: Waves     |     Sat Mar 29 15:17:38 PDT 2025
+Removed drawing: Sunset     |     Sat Mar 29 15:17:42 PDT 2025
+Gallery saved to file     |     Sat Mar 29 15:17:43 PDT 2025
+```

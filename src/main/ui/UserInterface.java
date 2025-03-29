@@ -221,7 +221,7 @@ public class UserInterface extends JFrame {
      */
     private void printLogs() {
         for (Event e : EventLog.getInstance()) {
-            System.out.println(e.getDescription());
+            System.out.println(e.getDescription() + "     |     " + e.getDate());
         }
     }
 }

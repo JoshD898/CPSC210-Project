@@ -1,4 +1,12 @@
 {
     "selectedDrawingTitle": null,
-    "gallery": []
+    "gallery": [{
+        "red": 127,
+        "green": 255,
+        "blue": 127,
+        "width": 80,
+        "title": "Waves",
+        "height": 120,
+        "isComplete": false
+    }]
 }

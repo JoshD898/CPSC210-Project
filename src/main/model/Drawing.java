@@ -56,6 +56,7 @@ public class Drawing {
      * EFFECTS: title of drawing is set to newTitle
      */
     public void setTitle(String newTitle) {
+        EventLog.getInstance().logEvent(new Event("Modified drawing: " + title));
         title = newTitle;
     }
 

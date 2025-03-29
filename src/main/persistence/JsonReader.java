@@ -9,6 +9,8 @@ import java.awt.Color;
 import org.json.*;
 
 import model.Drawing;
+import model.EventLog;
+import model.Event;
 import model.Gallery;
 
 // Represents a reader that reads gallery and drawing from JSON data stored in file
@@ -31,6 +33,9 @@ public class JsonReader {
     public Gallery readGallery() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonobject = new JSONObject(jsonData);
+
+        EventLog.getInstance().logEvent(new Event("Gallery loaded from file"));
+
         return parseGallery(jsonobject);
     }
 

@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Drawing;
+import model.Event;
+import model.EventLog;
 import model.Gallery;
 
 import java.io.*;
@@ -55,6 +57,7 @@ public class JsonWriter {
      * EFFECTS: writes string to file
      */
     private void saveToFile(String json) {
+        EventLog.getInstance().logEvent(new Event("Gallery saved to file"));
         writer.print(json);
     }
 }

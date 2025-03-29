@@ -24,6 +24,7 @@ public class Gallery {
     */
     public void addDrawing(Drawing d) {
         drawingList.add(d);
+        EventLog.getInstance().logEvent(new Event("Added drawing: " + d.getTitle()));
     }
 
     /*
@@ -94,6 +95,7 @@ public class Gallery {
     */
     public void removeDrawing(Drawing d) {
         drawingList.remove(d);
+        EventLog.getInstance().logEvent(new Event("Removed drawing: " + d.getTitle()));
     }
 
     /*

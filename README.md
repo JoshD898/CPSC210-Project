@@ -43,3 +43,13 @@ Modified drawing: Waves     |     Sat Mar 29 15:17:38 PDT 2025
 Removed drawing: Sunset     |     Sat Mar 29 15:17:42 PDT 2025
 Gallery saved to file     |     Sat Mar 29 15:17:43 PDT 2025
 ```
+
+### Phase 4 Refactoring Ideas:
+
+Refactor 1:
+
+The `TerminalApp` and `UserInterface` classes share numerous fields and methods. To minimize code duplication, an abstract class could be introduced to centralize shared fields such as `gallery` and `selectedDrawing`, along with shared methods for adding, modifying, and managing drawings, as well as handling file operations like loading and saving. Both the `TerminalApp` and `UserInterface` classes could then extend this abstract class, reducing the ammount of repeated code.
+
+Refactor 2:
+
+A `UserInterface` object is currently passed as an argument to several user interface helper classes (i.e. `EditPanel`), which then invoke methods on it to modify the `selectedDrawing` or change what panel is displayed. To simplify the code and improve manageability, the singleton pattern could be applied within the `UserInterface` class. This would eliminate the need to pass the `UserInterface` as an argument, making the code cleaner and easier to maintain.
